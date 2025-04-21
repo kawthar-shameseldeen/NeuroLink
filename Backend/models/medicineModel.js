@@ -15,10 +15,14 @@ const medicineSchema = new Schema(
       type: String,
       default: "",
     },
+    // patient: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Patient",
+    //   required: true
+    // }
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt fields
   }
 );
-
 export const Medicine = mongoose.model("Medicine", medicineSchema);

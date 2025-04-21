@@ -4,6 +4,10 @@ import dotenv from "dotenv";
 import http from "http";
 import { WebSocketServer } from "ws";
 import cors from "cors";
+import userRoutes from "./routes/user.routes.js";
+import authRouter from "./routes/auth.routes.js";
+import medicineRoutes from "./routes/medicine.routes.js";
+import patientRoutes from "./routes/patient.routes.js";
 
 // Initialize environment variables
 dotenv.config();
@@ -19,6 +23,13 @@ app.use(cors({
 
 app.use(express.json());
 
+app.use("/api", userRoutes);
+
+app.use("/api", authRouter);
+
+app.use("/api/medicines", medicineRoutes);
+
+app.use("/api/patients", patientRoutes);
 // Create HTTP server from the Express app
 const server = http.createServer(app);
 

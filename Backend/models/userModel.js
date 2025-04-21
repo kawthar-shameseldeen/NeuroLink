@@ -1,9 +1,7 @@
 import mongoose, { Schema } from "mongoose";
-import { iotSchema } from "../schema/iotSchema.js";
-import { eventSchema } from "../schema/eventSchema.js";
+
 import bcrypt from "bcrypt";
-import Tour from "../models/tourModel.js";
-import eventSchema from "../schema/eventSchema.js";
+import { Patient } from "../schema/patientSchema.js";
 const userSchema = new Schema({
   username: {
     type: String,
@@ -14,7 +12,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    required: true, 
+    required: true,
   },
 
   password: {
@@ -30,20 +28,21 @@ const userSchema = new Schema({
     default: "user",
   },
 
-  iotDevices: {
-    type: [iotSchema],
-    default: [],
-    select: false,
-  },
+  // iotDevices: {
+  //   type: [iotSchema],
+  //   default: [],
+  //   select: false,
+  // },
   patient: {
-    type: Schema.Types.ObjectId,
-    ref: "Patient",
+    type:     Patient.schema,
+    required: false,               // no longer strictly required
+    default:  { name: null, age: null, gender: null }
   },
- 
+
   timeStamp: {
     type: Date,
     default: Date.now,
   },
 });
 
-export  const User = mongoose.model("User", userSchema)
+export const User = mongoose.model("User", userSchema);

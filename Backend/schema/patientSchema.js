@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { Medicine } from "../models/medicineModel.js";
 
 const patientSchema = new Schema({
   name: {
@@ -15,12 +16,10 @@ const patientSchema = new Schema({
     enum: ["Male", "Female", "Other"],
   },
   // Array of ObjectId references to Medicine documents
-  medicines: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Medicine",
-    },
-  ],
+  medicines: {
+    type:    [Medicine.schema],
+    default: []
+  },
   timeStamp: {
     type: Date,
     default: Date.now,

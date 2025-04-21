@@ -1,5 +1,4 @@
 import { User } from "../models/userModel.js";
-import eventSchema from "../schema/eventSchema.js";
 export const createUser = async (req, res) => {
   try {
     const userData = req.body;

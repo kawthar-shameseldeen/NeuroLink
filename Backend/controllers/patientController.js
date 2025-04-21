@@ -1,4 +1,4 @@
-import { Patient } from "../models/patientModel.js";
+import { Patient } from "../schema/patientSchema.js";
 
 // Create a new patient
 export const createPatient = async (req, res) => {
@@ -38,5 +38,23 @@ export const deletePatient = async (req, res) => {
     res.status(200).json({ message: "Patient deleted successfully", patient: deletedPatient });
   } catch (error) {
     res.status(500).json({ message: "Error deleting patient", error: error.message });
+  }
+};
+
+
+export const addMedicineToPatient = async (req, res) => {
+  const { patientId } = req.params;
+  const medData = req.body; // { name, time, description }
+
+  try {
+    const patient = await Patient.findById(patientId);
+    if (!patient) return res.status(404).json({ message: "Patient not found" });
+
+    patient.medicines.push(medData);
+    await patient.save();
+
+    res.status(200).json(patient);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
